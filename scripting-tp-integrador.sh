@@ -176,13 +176,38 @@ getNumberOfFiles () {
 
 	echo "Ingrese el directorio que desea analizar"
 
-	#read fileToCheck
+	read pathToCheck
 
-	listOfFiles=""
+	if [ -d "$pathToCheck" ]; then
 
-	ls c:\  
+        files=$(find $pathToCheck -maxdepth 1 -type f | wc -l)
 
-	echo $listOfFiles
+	echo El directorio tiene ${files} archivos 
+
+        num=$(find $pathToCheck -maxdepth 1 -type d | wc -l)
+        directories=$((num - 1))
+
+	echo ${directories} directorios 
+
+        sockets=$(find $pathToCheck -maxdepth 1 -type s | wc -l)
+
+	echo ${sockets} sockets  
+
+        enlacesSimbolicos=$(find $pathToCheck -maxdepth 1 -type l | wc -l)
+
+	echo ${enlacesSimbolicos} enlaces Simbolicos  
+
+        caracteres=$(find $pathToCheck -maxdepth 1 -type c | wc -l)
+
+	echo ${caracteres} archivos de caracteres 
+
+        blocks=$(find $pathToCheck -maxdepth 1 -type b | wc -l)
+
+	echo ${blocks} archivos de blocks 
+
+	else
+		echo "Path ingresado es invalido" 
+	fi
 
 }
 
