@@ -36,6 +36,10 @@ iptables -A OUTPUT -s 192.168.20.1 -d 192.168.20.2 -p tcp -m tcp --sport 22 -j A
 iptables -A FORWARD -s 192.168.20.4 -p tcp -m tcp  --dport 8080 -j ACCEPT
 iptables -A FORWARD -s 192.168.10.3 -d 192.168.20.4 -p tcp -m tcp  -j ACCEPT
 
+## Making changes to firewall on start
+iptables-save > rules.ipv4.conf
+Added iptables-restore < rules.ipv4.conf to etc/rc.local
+
 ## Dhcp in dhcp-server
 Change files /etc/defaults/isc-dhcp-server
 and file etc/dhcp/dhcp/dhcpd.conf
