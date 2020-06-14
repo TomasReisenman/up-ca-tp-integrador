@@ -46,4 +46,27 @@ and file etc/dhcp/dhcp/dhcpd.conf
 needed to restart dhcp service with   
 /etc/init.d/isc-server restart  
   
+## LVM y RAID  
+
+Se implemento un sistema de RAID 1 con dos discos  
+en el cliente-2 con el objetivo de darle al sistema mayor robustez  
+Esto se puede ver con sudo mdadm -D /dev/md0
+
+Se inplemento LVM con un solo volumen fisico (el cual  
+estaba duplicado por el paso anterior) para constituir un  
+unico volume group. Se crearon 2 logic volums:  
+uno montado en / para contener contenido del usuario que va a ser  
+variable como grabaciones de clases y otro  
+en /var para guardar informacion de una base de datos   
+para realizar data science  
+Esto se puede ver con el comando lvdisplay  
+Con esta configuracion obtenemos mas flexibilidad ya que  
+podemos aumentar el size de los logical volumes sin ningun  
+problema, algo en el sistema tradicional de particiones   
+no es posible. Tenemos la capacidad de agregar otro disco duro y   
+agregar su espacio  al volume group el cual luego lo podemos otorgar   
+a un volumen logico.  Esto nos cubre ante la posibilidad de que la    
+base de datos o la cantidad de grabaciones se salgan de control   
+y ocupen todo el dispositivo.   
+
   
